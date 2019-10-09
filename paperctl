@@ -1,0 +1,85 @@
+#!/bin/bash
+SHA256="7ee906cbc623e2eb314230e643debf221e7af171e91c1e57a3ae4779e0937938  paperctlrc"
+test -e ~/.config/paperctlrc
+if [ $? -eq 0 ]
+then
+	source ~/.config/paperctlrc
+else
+	curl -s https://fillmyan.us/downloads/paperctlrc > paperctlrc
+	echo $SHA256 | sha256sum --status -c -
+	if [ $? -eq 0 ]
+	then
+		mv paperctlrc ~/.config/
+		test -z $EDITOR
+		if [ $? -eq 0 ]
+		then
+			echo "Please edit ~/.config/paperctlrc and run again"
+			exit 0
+		else
+			$EDITOR ~/.config/paperctlrc
+			echo "Please run again to use your config file"
+			exit 0
+		fi
+	else
+		echo "Config sha256sum did not match. Aborting."
+		rm ~/.config/paperctlrc
+		exit 1
+	fi
+fi
+
+VERSION=$(curl -s https://papermc.io/api/v1/paper/$MCVERSION | jq -r '.builds.latest')
+FILE=paper-$VERSION.jar
+LATEST=https://papermc.io/api/v1/paper/$MCVERSION/latest/download
+
+if [ $1 == "update" ]
+then
+	for i in "${INSTANCE[@]}"
+	do
+		test -e $DIRECTORY/$i/$FILE
+		if [ $? -eq 0 ]
+		then
+        		echo "No need to update. $i is up to date."
+		else
+			echo "New version available for $i: $FILE"
+			if [ $SHUTDOWNWARNING == 'true' ]
+			then
+				echo "Sending Shutdown Warning to $i..."
+				tmux send -t $i "say Server will restart in $SHUTDOWNTIMER seconds" enter
+				sleep $(( $SHUTDOWNTIMER / 2 ))
+				tmux send -t $i "say Server will restart in $(( $SHUTDOWNTIMER / 2 )) seconds" enter
+				sleep $(( $SHUTDOWNTIMER / 2 ))
+			else
+				tmux send -t $i 'stop' enter
+				sleep 10s
+				tmux send -t $i 'exit' enter
+				rm $DIRECTORY/$i/*.jar
+				wget $LATEST -O $DIRECTORY/$i/$FILE
+				echo "java -Xms$RAM -Xmx$RAM -jar $FILE" > $DIRECTORY/$i/start
+				echo "Server Started"
+				tmux new-session -d -s $i -c $DIRECTORY/$i ./start
+			fi
+		fi
+	done
+elif [ $1 == "new" ]
+then
+	test -z $2
+	if [ $? == 0 ]
+	then
+		echo "Name required for server.
+Example: paperctl new [name]"
+	else
+		wget $LATEST -O $DIRECTORY/$2/$FILE
+		echo "java -Xms$RAM -Xmx$RAM -jar $FILE" > $DIRECTORY/$2/start
+		chmod +x $DIRECTORY/$2/start
+		tmux new-session -s $2 -c $DIRECTORY/$2 ./start
+	fi
+else
+	echo "Usage: papermc [argument]
+PaperCtl is a server manager for the Paper Minecraft server.
+https://papermc.io/
+
+The following arguments may be used.
+	new [instance]		Create a new server
+	update			Update the server(s)
+	"
+fi
