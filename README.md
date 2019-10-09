@@ -1,9 +1,10 @@
 # PaperCtl
-A manager for Paper Minecraft Servers. PaperCtl is able to create new and update existing Paper Servers. Check the website for details. 
+A manager for Paper Minecraft Servers. PaperCtl is able to create new and update existing Paper Servers. Check the website for details.
 
 https://papermc.io
 # Usage
 Create a new server: `paperctl new [name]`
+
 Update exsiting servers: `paperctl update`
 # Configuration
 The main config file is located at `~/.config/paperctlrc`
