@@ -68,6 +68,7 @@ then
 		echo "Name required for server.
 Example: paperctl new [name]"
 	else
+		mkdir -p $DIRECTORY/$2
 		wget $LATEST -O $DIRECTORY/$2/$FILE
 		echo "java -Xms$RAM -Xmx$RAM -jar $FILE" > $DIRECTORY/$2/start
 		chmod +x $DIRECTORY/$2/start
