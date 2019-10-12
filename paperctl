@@ -72,7 +72,15 @@ Example: paperctl new [name]"
 		wget $LATEST -O $DIRECTORY/$2/$FILE
 		echo "java -Xms$RAM -Xmx$RAM -jar $FILE" > $DIRECTORY/$2/start
 		chmod +x $DIRECTORY/$2/start
-		tmux new-session -s $2 -c $DIRECTORY/$2 ./start
+		echo "Do you agree to the Minecraft EULA? [y/N]"
+		read EULA
+		if [ $EULA == "y" ]
+		then
+			echo "eula=true" > $DIRECTORY/$2/eula.txt
+			tmux new-session -s $2 -c $DIRECTORY/$2 ./start
+		else
+			echo "Please agree to the Minecraft EULA located in $DIRECTORY/$2/eula.txt"
+		fi
 	fi
 else
 	echo "Usage: papermc [argument]
