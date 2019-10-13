@@ -48,16 +48,15 @@ then
 				sleep $(( $SHUTDOWNTIMER / 2 ))
 				tmux send -t $i "say Server will restart in $(( $SHUTDOWNTIMER / 2 )) seconds" enter
 				sleep $(( $SHUTDOWNTIMER / 2 ))
-			else
-				tmux send -t $i 'stop' enter
-				sleep 10s
-				tmux send -t $i 'exit' enter
-				rm $DIRECTORY/$i/*.jar
-				wget $LATEST -O $DIRECTORY/$i/$FILE
-				echo "java -Xms$RAM -Xmx$RAM -jar $FILE" > $DIRECTORY/$i/start
-				echo "Server Started"
-				tmux new-session -d -s $i -c $DIRECTORY/$i ./start
 			fi
+			tmux send -t $i 'stop' enter
+			sleep 10s
+			tmux send -t $i 'exit' enter
+			rm $DIRECTORY/$i/*.jar
+			wget $LATEST -O $DIRECTORY/$i/$FILE
+			echo "java -Xms$RAM -Xmx$RAM -jar $FILE" > $DIRECTORY/$i/start
+			echo "Server Started"
+			tmux new-session -d -s $i -c $DIRECTORY/$i ./start
 		fi
 	done
 elif [ $1 == "new" ]
