@@ -1,0 +1,20 @@
+# Default Config for PaperCtl
+#
+# Minecraft Game Version
+# Check https://papermc.io for available versions
+MCVERSION=1.14.4
+# Base Directory for the server
+DIRECTORY=~/paper
+# Used for TMUX session name and subdirectory
+# Add new lines for separate servers
+INSTANCE=(
+	minecraft
+	#hardcore
+)
+# Show a Shutdown warning to players
+SHUTDOWNWARNING=true
+# Shutdown timer in seconds
+SHUTDOWNTIMER=60
+# How much RAM to allocate to the server
+# Example: 512M, 768M, 1G, 2G, 4G, etc
+RAM=1G
