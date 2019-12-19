@@ -19,8 +19,8 @@ It is automagically created and opened in the default editor if one is set.
 
 [sed](https://www.gnu.org/software/sed/) for adding new instances to config file
 
-Arch: `sudo pacman -S jq curl tmux`
+Arch: `sudo pacman -S jq curl tmux sed`
 
-Ubuntu: `sudo apt install jq curl tmux`
+Ubuntu: `sudo apt install jq curl tmux sed`
 
 It is also recommened to have the `$EDITOR` environment variable set before running the first time. Though not required.
