@@ -17,6 +17,8 @@ It is automagically created and opened in the default editor if one is set.
 
 [tmux](https://github.com/tmux/tmux/wiki) for running instances in the background.
 
+[sed](https://www.gnu.org/software/sed/) for adding new instances to config file
+
 Arch: `sudo pacman -S jq curl tmux`
 
 Ubuntu: `sudo apt install jq curl tmux`
