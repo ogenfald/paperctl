@@ -1,29 +1,19 @@
 #!/bin/bash
-SHA256="7ee906cbc623e2eb314230e643debf221e7af171e91c1e57a3ae4779e0937938  paperctlrc"
 test -e ~/.config/paperctlrc
 if [ $? -eq 0 ]
 then
 	source ~/.config/paperctlrc
 else
-	curl -s https://fillmyan.us/downloads/paperctlrc > paperctlrc
-	echo $SHA256 | sha256sum --status -c -
+	cp /etc/default/paperctlrc ~/.config/
+	test -z $EDITOR
 	if [ $? -eq 0 ]
 	then
-		mv paperctlrc ~/.config/
-		test -z $EDITOR
-		if [ $? -eq 0 ]
-		then
-			echo "Please edit ~/.config/paperctlrc and run again"
-			exit 0
-		else
-			$EDITOR ~/.config/paperctlrc
-			echo "Please run again to use your config file"
-			exit 0
-		fi
+		echo "Please edit ~/.config/paperctlrc and run again"
+		exit 0
 	else
-		echo "Config sha256sum did not match. Aborting."
-		rm ~/.config/paperctlrc
-		exit 1
+		$EDITOR ~/.config/paperctlrc
+		echo "Please run again to use your config file"
+		exit 0
 	fi
 fi
 
