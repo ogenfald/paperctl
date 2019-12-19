@@ -61,6 +61,7 @@ Example: paperctl new [name]"
 		wget $LATEST -O $DIRECTORY/$2/$FILE
 		echo "java -Xms$RAM -Xmx$RAM -jar $FILE" > $DIRECTORY/$2/start
 		chmod +x $DIRECTORY/$2/start
+		sed -i "/INSTANCE=(/a \\\t$2" ~/.config/paperctlrc
 		echo "Do you agree to the Minecraft EULA? [y/N]"
 		read EULA
 		if [ $EULA == "y" ]
