@@ -20,6 +20,7 @@ It is automagically created and opened in the default editor if one is set.
 [sed](https://www.gnu.org/software/sed/) for adding new instances to config file
 
 [gzip](https://www.gnu.org/software/gzip/) for compressing man page
+
 Arch: `sudo pacman -S jq curl tmux sed gzip`
 
 Ubuntu: `sudo apt install jq curl tmux sed gzip`
