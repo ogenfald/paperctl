@@ -1,5 +1,6 @@
 DESTDIR = /usr/bin
 CONFIGDIR = /etc/default
+MANDIR = /usr/local/man/man1
 .DEFAULT_GOAL := help
 
 help:
@@ -13,3 +14,7 @@ install:
 	@chmod +x $(DESTDIR)/paperctl
 	@echo "Installing default config to $(CONFIGDIR)/paperctlrc"
 	@cp $$(pwd)/paperctlrc $(CONFIGDIR)/paperctlrc
+	@echo "Installing man page to $(MANDIR)"
+	@mkdir -p $(MANDIR)
+	@cp $$(pwd)/manpage $(MANDIR)/paperctl.1
+	@gzip $(MANDIR)/paperctl.1

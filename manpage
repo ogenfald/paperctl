@@ -1,0 +1,16 @@
+.\" Manpage for paperctl.
+.TH man 1 "22 Dec 2019" "1.0" "paperctl man page"
+.SH NAME
+paperctl \- create new and update existing PaperMC servers
+.SH DESCRIPTION
+PaperCtl is a command-line tool for creating new PaperMC server and updating existing servers with the usage of a convenient config file. The default config is located at /etc/default/paperctlrc
+
+Upon first run the default config is copied and sourced from ~/.config/paperctlrc. Edit the config file in your home directory as it is the one that gets sourced during runtime.
+.SH OPTIONS
+paperctl name [NAME] - Create a new server and add it to the config
+
+paperctl update - Checks for updates to all existing servers from config
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Ben Joyner (https://github.con/ogenfald)

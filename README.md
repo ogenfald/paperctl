@@ -19,8 +19,9 @@ It is automagically created and opened in the default editor if one is set.
 
 [sed](https://www.gnu.org/software/sed/) for adding new instances to config file
 
-Arch: `sudo pacman -S jq curl tmux sed`
+[gzip](https://www.gnu.org/software/gzip/) for compressing man page
+Arch: `sudo pacman -S jq curl tmux sed gzip`
 
-Ubuntu: `sudo apt install jq curl tmux sed`
+Ubuntu: `sudo apt install jq curl tmux sed gzip`
 
 It is also recommened to have the `$EDITOR` environment variable set before running the first time. Though not required.
