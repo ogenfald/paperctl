@@ -13,4 +13,4 @@ paperctl update - Checks for updates to all existing servers from config
 .SH BUGS
 No known bugs.
 .SH AUTHOR
-Ben Joyner (https://github.con/ogenfald)
+Ben Joyner (https://github.com/ogenfald)
